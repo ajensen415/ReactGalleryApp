@@ -1,25 +1,22 @@
-import React, { Component }from 'react';
+import React, { Component, useState } from 'react';
 
-class Search extends Component {
-    state = {
-        search: ''
-    }
+function Search() {
+    const [term, setTerm] = useState('');
 
-    onInputChange = (e) => {
-        this.setState(e.target.value)
-    }
-
-    onFormSubmit = (e) => {
+    const onFormSubmit = (e, term) => {
         e.preventDefault();
+        console.log('Hello, butts', term);
+        //TODO - call Flicker API here
+
     }
 
-    render() {
+    
         return (
-            <form className="search-form" onSubmit={this.onFormSubmit}>
-            <input type="search" 
+            <form className="search-form" onSubmit={onFormSubmit}>
+            <input onChange={(e) => setTerm(e.target.value)} 
+                type="search" 
                 name="search" 
                 placeholder="Search" 
-                onChange={this.onInputChange}
                 required/>
             <button type="submit" className="search-button">
             <svg fill="#fff" height="24" viewBox="0 0 23 23" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -30,7 +27,7 @@ class Search extends Component {
         </form>
         )
     }
-}
+
 
 export default Search;
 
