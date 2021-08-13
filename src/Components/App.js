@@ -5,18 +5,28 @@ import {
   Switch
 } from 'react-router-dom';
 
-import apiKey from 'src/config';
+import apiKey from '../config';
 
-import Nav from './Components/Nav';
-import NotFound from './Components/NotFound';
-import Photo from './Components/Photo';
+import Nav from './Nav';
+import NotFound from './NotFound';
+import Search from './Search';
 
 class App extends Component {
   //set state & mount 
+  /*setState({
+    photos: [],
+    page: 1,
+    perPage: 24,
+    isLoading: false*/
 
   //function searh images tags
 
   //render & routes
+  render() {
+    return (
+      <div>App</div>
+    );
+  }
 }
 
 export default App;
