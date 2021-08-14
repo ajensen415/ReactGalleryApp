@@ -1,53 +1,3 @@
-// import React, { Component } from 'react';
-// import {
-//   BrowserRouter as Router,
-//   Route,
-//   Switch
-// } from 'react-router-dom';
-
-// import apiKey from '../config';
-
-// import Nav from './Nav';
-// import NotFound from './NotFound';
-// import Search from './Search';
-// //import PhotoContainer from './PhotoContainer';
-
-// class App extends Component {
-// //TODO - pull in data from API 
-// //const props = 
-
-//   //set state & mount 
-//   /*setState({
-//     photos: [],
-//     page: 1,
-//     perPage: 24,
-//     isLoading: false*/
-
-//   //function search images tags
-
-//   //render & routes
-//   render() {
-//     return (
-//       <div>
-//         <Search />
-//         <Router>
-//           <Route path='/sloths'>
-//             This will be Sloths! 
-//           </Route>
-//           <Route path='/newyork'>
-//             This will be New York! 
-//           </Route>
-//           <Route path='/mountains'>
-//             This will be Mountains! 
-//           </Route>
-//         </Router>
-//       </div>
-//     );
-//   }
-// }
-
-// export default App;
-
 import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
@@ -67,7 +17,8 @@ export default class App extends Component {
   constructor() {
     super();
     this.state = {
-      photos: []
+      photos: [],
+      isLoading: false
     };
   } 
 
@@ -76,35 +27,44 @@ export default class App extends Component {
   }
   
   performSearch = (query) => {
-    axios.get(`http://api.giphy.com/v1/gifs/search?q=${query}&limit=24&api_key=dc6zaTOxFJmzC`)
+    fetch(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
       .then(response => {
         this.setState({
-          gifs: response.data.data
+          photos: response.data.data
         });
       })
       .catch(error => {
-        console.log('Error fetching and parsing data', error);
+        console.log('Oops, there was an error. Please try again.', error);
       });    
   }
   
-  render() { 
-    console.log(this.state.gifs);
-    return (
-      <div>
-        <div className="main-header">
-          <div className="inner">
-            <h1 className="main-title">GifSearch</h1>
-            <SearchForm onSearch={this.performSearch} />      
-          </div>   
-        </div>    
-        <div className="main-content">
-          <GifList data={this.state.gifs} />
-        </div>
-      </div>
-    );
-  }
-}
+  render() {
+        return (
+          <Router>
+            <div className="container">
+              <Search onSearch={this.searchResults} />
+              <Nav />
+              <div>
+                <Switch>
+                  <Route path='/sloths'>
+                    This will be Sloths! 
+                  </Route>
 
+                  <Route path='/newyork'>
+                    This will be New York! 
+                  </Route>
 
+                  <Route path='/mountains'>
+                    This will be Mountains! 
+                  </Route>
+                </Switch>
+              </div>
+            </div>
+          </Router>
+        );
+      }
+    }
+    
+    //export default App;
 
 
