@@ -1,54 +1,32 @@
-// import React from 'react';
-// import { withRouter } from 'react-router-dom';
-
-// import NotFound from './NotFound';
-// import Photo from './Photo';
-
-// //function to iterate through the returned images & provide them with a unique key(24 images)
-// const PhotoContainer = (props) => {
-
-//     let images = props.data.map ( photo =>
-//         <Photo 
-//             url={`https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`}
-//             key={photo.id}
-//         />
-//     );
-
-//     //return images into container, adding to ul
-//     return (
-//         <div className="photo-contasiner">
-//             <h2>Results: {props.title}</h2>
-//                 <ul>
-//                     {photos}
-//                 </ul>
-//         </div>
-//     );
-// }
-
-// export default PhotoContainer;
-
-import React from 'react';
-import NotFound from './NotFound';
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import Photo from './Photo';
+import NotFound from './NotFound';
 
-const Photo = props => { 
-  
-  const results = props.data;
-  let images = results.map(image =>
-    <Photo 
-        url={`https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`}
-        key={photo.id} 
-    />
-  );
-  
-  return (
-            <div className="photo-contasiner">
-                <h2>Results: {props.title}</h2>
-                    <ul>
-                        {photos}
-                    </ul>
+class PhotoContainer extends Component {
+    searchPictures() {
+        let photos = this.props.imageData.map( image => 
+            <Photo 
+                url={`https://live.staticflickr.com/${image.server}/${image.id}_${image.secret}_w.jpg`} 
+                key={image.id} 
+                alt={image.title}
+            />
+        );
+
+        return photos;
+    }
+    
+    render() {
+        return (
+            <div className="photo-container">
+                <h2>Results: {this.props.title}</h2>
+                <ul>
+                    { this.photos }
+                </ul>
             </div>
         );
     }
+    
+}
 
-export default PhotoContainer;
+export default withRouter(PhotoContainer);

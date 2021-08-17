@@ -1,15 +1,17 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-//route & add header html to top of page
+//routes for default image searches
 const Nav = () => {
-  <nav className="main-nav">
-    <ul>
-      <li><NavLink to="">Sloths</NavLink></li>
-      <li><NavLink to="">New York</NavLink></li>
-      <li><NavLink to="">Mountains</NavLink></li>
-    </ul>
-  </nav>
+  return (
+    <nav className="main-nav">
+      <ul>
+        <li><NavLink to="/sloths">Sloths</NavLink></li>
+        <li><NavLink to="/brooklyn">Brooklyn</NavLink></li>
+        <li><NavLink to="/mountains">Mountains</NavLink></li>
+      </ul>
+    </nav>
+    );
   }
 
 export default Nav;
