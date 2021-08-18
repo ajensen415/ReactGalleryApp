@@ -17,6 +17,7 @@ class App extends Component {
   //set state to empty arrays for default images
   state = {
 
+    photos: [],
     slothPhotos: [],
     brooklynPhotos: [],
     mountainsPhotos: [],
@@ -30,9 +31,10 @@ class App extends Component {
   componentDidMount() {
 
     fetch(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=sloths&per_page=24&format=json&nojsoncallback=1`)
-      .then(response => {
+      .then(response => response.json())
+      .then(responseData => {
         this.setState({
-          slothPhotos: response.data.photos.photo,
+          slothPhotos: responseData.photos.photo,
           isLoading: false
         });
       })
@@ -41,9 +43,10 @@ class App extends Component {
       });
 
     fetch(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=brooklyn&per_page=24&format=json&nojsoncallback=1`)
-      .then(response => {
+      .then(response => response.json())
+      .then(responseData => {
         this.setState({
-          brooklynPhotos: response.data.photos.photo,
+          brooklynPhotos: responseData.photos.photo,
           isLoading: false
         });
       })
@@ -52,9 +55,10 @@ class App extends Component {
       });
     
     fetch(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=mountains&per_page=24&format=json&nojsoncallback=1`)
-      .then(response => {
+      .then(response => response.json())
+      .then(responseData => {
         this.setState({
-          mountainsPhotos: response.data.photos.photo,
+          mountainsPhotos: responseData.photos.photo,
           isLoading: false
         });
       })
@@ -67,9 +71,10 @@ class App extends Component {
   performSearch = (query) => {
     this.setState({ isLoading: true });
     fetch(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
-      .then(response => {
+      .then(response => response.json())
+      .then(responseData => {
         this.setState({ 
-          searchPhotos: response.data.photos.photo,
+          searchPhotos: responseData.photos.photo,
           searchQuery: query,
           isLoading: false
         });
@@ -98,25 +103,19 @@ class App extends Component {
                     <PhotoContainer 
                       imageData={this.state.slothPhotos}
                     />
-                    }>
-                    This will be Sloths! 
-                  </Route>
+                    } />
 
                   <Route path='/brooklyn' render={() => 
                     <PhotoContainer 
                       imageData={this.state.brooklynPhotos}
                     />
-                    }>
-                    This will be Brooklyn! 
-                  </Route>
+                    } />
 
                   <Route path='/mountains' render={() => 
                     <PhotoContainer 
                       imageData={this.state.mountainsPhotos}
                     />
-                    }>
-                    This will be Mountains! 
-                  </Route>
+                    } />
                     
                   <Route path="/search/:query" render={ () => 
                     <PhotoContainer 
@@ -126,10 +125,11 @@ class App extends Component {
                     />
                   }/>
 
-                  <Route 
+                  {/* <Route 
                     component={ NotFound }
-                  />
+                  /> */}
                 </Switch>
+                <NotFound />
               </div>
             </div>
           </Router>

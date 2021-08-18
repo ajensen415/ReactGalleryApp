@@ -19,9 +19,9 @@ class PhotoContainer extends Component {
     render() {
         return (
             <div className="photo-container">
-                <h2>Results: {this.props.title}</h2>
+                <h2>Results</h2>
                 <ul>
-                    { this.photos }
+                    { this.searchPictures() }
                 </ul>
             </div>
         );
