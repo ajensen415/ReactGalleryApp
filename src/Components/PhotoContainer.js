@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import Photo from './Photo';
-import NotFound from './NotFound';
 
+//class/function to search pictures and display them to the page
 class PhotoContainer extends Component {
     searchPictures() {
         let photos = this.props.imageData.map( image => 

@@ -124,10 +124,6 @@ class App extends Component {
                       newSearch={this.performSearch}
                     />
                   }/>
-
-                  {/* <Route 
-                    component={ NotFound }
-                  /> */}
                 </Switch>
                 <NotFound />
               </div>
